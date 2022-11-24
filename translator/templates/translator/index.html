@@ -1,0 +1,248 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="tr" dir="rtl">
+<head>
+
+    
+    <title>Ar2tr - مترجم عربي تركي</title>
+
+
+
+<meta charset="utf-8" />
+<meta name="viewport" id="testViewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+
+<link rel="shortcut icon" href="{% static 'translator/images/favicon.ico' %}" type="image/x-icon" />
+<link rel="icon" href="{% static 'translator/images/favicon.ico' %}" type="image/x-icon" />
+
+<meta name="application-name" content="Tureng" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<meta name="theme-color" content="#bd1d2e" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#bd1d2e" media="(prefers-color-scheme: dark)" />
+
+<meta name="google" content="notranslate" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link href="{% static 'translator/css/17032020bundle.css' %}" rel="stylesheet" type="text/css" />
+{% comment %} <link href="{% static 'translator/css/darkmode17032020bundle.css' %}" rel="stylesheet" type="text/css" /> {% endcomment %}
+<script src="{% static 'translator/js/jquery.js' %}"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="{% static 'translator/js/17032020bundle.js' %}"></script>
+<script src="{% static 'translator/js/a076d05399.js' %}" crossorigin='anonymous'></script>
+<!-- CSS only -->
+
+<meta name="description" content="English Turkish online dictionary Tureng, translate words and terms with different pronunciation options. " />
+
+<style type="text/css">
+    @media (min-width: 1200px) {
+        #crossDictionaryTabs { margin-left: 180px; }
+        .ar2tr-search-form-area { margin-left: 180px !important; }
+        .ar2tr-searchresults-col-left { min-width: 780px !important; }
+
+        .ar2tr-searchresults-ad-left { transform: translateX(-120px); height: 600px; clear: both; position: absolute; top: 100px; }
+        .ar2tr-searchresults-ad-right { transform: translateX(990px); height: 600px; clear: both; position: absolute; top: 100px; }
+
+        .ar2tr-page-suggest .ar2tr-searchresults-ad-right, .ar2tr-page-termrequest .ar2tr-searchresults-ad-right { transform: translateX(850px); height: 600px; clear: both; position: absolute; top: 100px; }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+        #crossDictionaryTabs { margin-left: 147px; }
+        .ar2tr-search-form-area { margin-left: 147px !important; }
+
+        .termresults-ad-tr td { overflow: hidden; max-width: 630px; }
+        .ar2tr-searchresults-ad-left { transform: translateX(-10px); height: 600px; clear: both; position: absolute; top: 100px; }
+        .ar2tr-searchresults-ad-right { transform: translateX(820px); height: 600px; clear: both; position: absolute; top: 100px; }
+
+        .ar2tr-page-suggest .ar2tr-searchresults-ad-right, .ar2tr-page-termrequest .ar2tr-searchresults-ad-right { transform: translateX(790px); height: 600px; clear: both; position: absolute; top: 100px; }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .ar2tr-searchresults-ad-left { display: none; }
+        .ar2tr-searchresults-ad-right { display: none; }
+    }
+
+    @media (max-width: 767px) {
+        .ar2tr-searchresults-ad-left { display: none; }
+        .ar2tr-searchresults-ad-right { display: none; }
+    }
+
+    .table i {
+      font-style: normal !important;
+      font-size: 15px !important;
+      margin: 0 10px;
+    }
+
+    .modal-backdrop {
+      z-index: -1;
+    }
+</style>
+
+
+    <link rel="preload" href="{% static 'translator/fonts/Poppins-Medium.woff2' %}" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="{% static 'translator/fonts/Poppins-Regular.woff2' %}" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="{% static 'translator/fonts/Monday.woff2' %}" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="{% static 'translator/fonts/theboldfont.woff2' %}" as="font" type="font/woff2" crossorigin />
+    <link href="{% static 'translator/css/style.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'translator/css/style-ar.css' %}" rel="stylesheet" type="text/css" />
+
+</head>
+<body class="ar2tr-subsite-entr" style="direction: rtl;">
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-50" id="exampleModalLabel">إضافة / تعديل الترجمة</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 0">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="display: flex; justify-content: right; flex-direction: column;">
+          <div class="input-group">
+            <select name="category" id="edit-category" class="form-control" >
+              <option value="">اختر التصنيف</option>
+              {% for cat in cats %}
+                <option value="{{cat.id}}">{{cat.name}}</option>
+              {% endfor %}
+            </select>
+            <input autocomplete="off" class="form-control" style="margin: 10px 0;" id="ar-phrase" maxlength="230" name="ar_phrase" placeholder="الكلمة العربية" type="text">      
+
+            <input autocomplete="off" lang="tr" class="form-control" id="tr-phrase" maxlength="230" name="tr-phrase" placeholder="الكلمة التركية" type="text">      
+            <input type="hidden" id="type" name="type" value="add">
+            <input type="hidden" id="id" name="type">
+            <br />
+          </div>
+          <div style="display: flex; justify-content: center; flex-direction: column;">
+            <div id="success-msg" class="alert alert-primary" style="text-align: center; display: none;" role="alert">
+              تم الحفظ بنجاح
+            </div>
+            <div id="error-msg" class="alert alert-danger" style="text-align: center; display: none;" role="alert">
+              حدث خطأ غير متوقع
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: space-around;">
+          <button type="button" id="save" class="btn btn-danger">حفظ</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">أغلق</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="container body-content">
+      <div class="ar2tr-index hidden-print">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12 ar2tr-index-logo" style="display: flex; justify-content: center;">
+            <h1>
+                <a href="/"><img src="{% static 'translator/images/ar2tr-logo.png' %}" height="90" srcset="{% static 'translator/images/ar2tr-logo.png' %} 1x, {% static 'translator/images/ar2tr-logo-2x.png' %} 2x" alt="Arabic Turkish Dictionary" /></a>
+            </h1>
+          </div>
+          <div class="col-md-6 col-sm-9 col-xs-12 ar2tr-index-col-search" style="display: flex; justify-content: center;">    
+            <form class="form form-inline ar2tr-searchform" method="get">
+              <div class="input-group">  
+                <input autocomplete="off" class="form-control af ar2tr-searchform-textbox" id="searchTerm2" maxlength="230" name="searchTerm" placeholder="اكتب بالتركي أو بالعربي" type="text" value="{{searchTerm|default_if_none:''}}">      
+                <!-- <input autocomplete="off" class="form-control af ar2tr-searchform-textbox" id="searchTerm" maxlength="230" name="searchTerm" placeholder="اكتب بالتركي أو بالعربي" type="text" value="{{searchTerm|default_if_none:''}}" /> -->
+                <div class="input-group-btn">
+                  <input type="submit" value="ترجم" class="btn btn-ar2trsearch hvr-fade" />
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6 col-sm-9 col-xs-12 ar2tr-index-col-search" style="display: flex; justify-content: center;">    
+            <form class="form form-inline ar2tr-searchform" method="get">
+              <div class="input-group">  
+                {% comment %} <input autocomplete="off" class="form-control af ar2tr-searchform-textbox" id="searchTerm2" maxlength="230" name="searchTerm" placeholder="اكتب بالتركي أو بالعربي" type="text" value="{{searchTerm|default_if_none:''}}">       {% endcomment %}
+                <select name="category" id="select-category" class="form-control af ar2tr-searchform-textbox">
+                  <option>اختر التصنيف</option>
+                  {% for cat in cats %}
+                    <option {% if selected_category == cat.id|stringformat:"i" %} selected {% endif %} value="{{cat.id}}">{{cat.name}}</option>
+                  {% endfor %}
+                </select>
+                <!-- <input autocomplete="off" class="form-control af ar2tr-searchform-textbox" id="searchTerm" maxlength="230" name="searchTerm" placeholder="اكتب بالتركي أو بالعربي" type="text" value="{{searchTerm|default_if_none:''}}" /> -->
+                <div class="input-group-btn">
+                  <input type="submit" value="تصفح" class="btn btn-ar2trsearch hvr-fade" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center;">
+          <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">أضف ترجمة جديدة</button>
+        </div>
+      </div>
+
+
+    {% if searchTerm or selected_category %}
+      <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 ar2tr-searchresults-content" style="padding-top:0px!important; min-height: auto!important;">
+        <h1>{{searchTerm}}</h1>
+        <h2>نتائح البحث: {{total_count}} نتيجة</h2>
+      </div>
+      
+      <nav aria-label="Page navigation example">
+        {% if has_next or has_prev %}
+        <ul class="pagination">
+          {% if page > 1 %}
+          <li class="page-item"><a class="page-link" data-direction="prev" style="color: #9B0A19;" href="#">الصفحة السابقة</a></li>
+          {% endif %}
+          <li class="page-item" style="position: relative;
+          float: left;
+          padding: 6px 12px;
+          margin-left: -1px;
+          line-height: 1.42857143;
+          color: #9B0A19;
+          text-decoration: none;
+          background-color: #fff;
+          border: 1px solid #ddd;">{{page}}</li>
+          {% if has_next %}
+          <li class="page-item"><a class="page-link" data-direction="next" style="color: #9B0A19;" href="#">الصفحة التالية</a></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </nav>
+      <table class="table table-hover table-striped searchResultsTable" id="englishResultsTable" style="text-align: right;">
+        <tbody>
+            <tr>
+                <th class="c0 hidden-xs"></th>
+                <th class="c1 hidden-xs">التصنيف</th>
+                <th class="c2">العربي</th>
+                <th class="c3">التركي</th>
+                <th class="c4"></th>
+            </tr>
+            {% for item in results %}                
+            <tr>
+                <td class="rc0 hidden-xs">{{forloop.counter}}</td>
+                <td class="hidden-xs">{{item.category.name}}</td>
+                {% comment %} <td class="tr ts" lang="ar">{{item.ar_text}}  <i data-lang="ar" data-text="{{item.ar_text}}" class='fas fa-volume-up'></i></td> {% endcomment %}
+                <td class="tr ts" lang="ar">{{item.ar_text}} </td>
+                <td class="en tm" lang="tr" style="direction: ltr;"><i data-lang="tr" data-text="{{item.tr_text}}" class='fas fa-volume-up'></i> {{item.tr_text}}</td>
+                 <td class="rc4" data-id="{{item.id}}" data-ar="{{item.ar_text}}" data-tr="{{item.tr_text}}" data-category="{{item.category.id}}"><i class="fas fa-edit"></i></td>
+            </tr>
+          {% endfor %}
+    </tbody></table>
+    <nav aria-label="Page navigation example">
+      {% if has_next %}
+      <ul class="pagination">
+        {% if page > 1 %}
+        <li class="page-item"><a class="page-link" data-direction="prev" style="color: #9B0A19;" href="#">الصفحة السابقة</a></li>
+        {% endif %}
+        <li class="page-item" style="position: relative;
+        float: left;
+        padding: 6px 12px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: #9B0A19;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #ddd;">{{page}}</li>
+        <li class="page-item"><a class="page-link" data-direction="next" style="color: #9B0A19;" href="#">الصفحة التالية</a></li>
+      </ul>
+      {% endif %}
+    </nav>
+    </div>
+
+    {% endif %}
+    <!-- JavaScript Bundle with Popper -->
+
+    <script src="{% static 'translator/js/custom.js' %}" crossorigin='anonymous'></script> 
+</html>

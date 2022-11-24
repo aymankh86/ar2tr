@@ -1,0 +1,5 @@
+Django==4.1.3
+psycopg2-binary==2.9.5
+langdetect==1.0.9
+PyArabic==0.6.15
+django-extensions==3.2.1

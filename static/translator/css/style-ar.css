@@ -1,0 +1,35 @@
+.ar2tr-searchform-textbox{
+    border: 1px grey solid;
+    border-radius: 5px !important;
+    border-left: none;
+
+}
+.btn-ar2trsearch {
+    border-radius: unset;
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+}
+
+.row {
+    display: flex;
+}
+
+.ar2tr-searchresults-content {
+    float: right;
+}
+
+.ar2tr-searchresults-content h1 {
+    text-align: right;
+}
+
+.ar2tr-searchresults-content h2 {
+    text-align: right;
+}
+
+.searchResultsTable th {
+    text-align: right;
+}
+
+.body-content {
+    background-color: white;
+}
